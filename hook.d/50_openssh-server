@@ -20,14 +20,17 @@
 #   GNU General Public License for more details.
 #
 
+glob1='/etc/ssh/ssh_host_*'
+glob2=$glob1
+
 case "$1" in
     startup)
-	if [ -z $(shopt -s nullglob; echo /etc/ssh/ssh_host_*) ]; then
+	if [ "$glob1" = "$glob2" ]; then
 	    dpkg-reconfigure openssh-server
 	fi
 	;;
     cleanup)
-	if [ -n $(shopt -s nullglob; echo /etc/ssh/ssh_host_*) ]; then
+	if [ "$glob1" != "$glob2" ]; then
 	    echo "Removing openssh-server's host keys..."
 	    rm -vf /etc/ssh/ssh_host_*
 	fi
