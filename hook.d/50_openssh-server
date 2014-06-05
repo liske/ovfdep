@@ -27,6 +27,9 @@ case "$1" in
 	fi
 	;;
     cleanup)
-	rm -f /etc/ssh/ssh_host_*
+	if [ -n $(shopt -s nullglob; echo /etc/ssh/ssh_host_*) ]; then
+	    echo "Removing openssh-server's host keys..."
+	    rm -vf /etc/ssh/ssh_host_*
+	fi
 	;;
 esac

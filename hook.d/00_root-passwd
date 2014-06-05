@@ -23,10 +23,14 @@
 case "$1" in
     startup)
 	if [ X`getent shadow root|cut -d: -f1-2|grep ':$'|cut -d: -f1` = 'Xroot' ]; then
-	    while ! passwd root; do echo; echo 'ROOT PASSWORD IS REQUIRED!'; echo; done
+	    echo
+	    echo 'ROOT PASSWORD IS REQUIRED TO BE SET!'
+	    echo
+	    while ! passwd root; do echo; echo 'SORRY, ROOT PASSWORD IS REQUIRED!'; echo; done
 	fi
 	;;
     cleanup)
+	echo "Removing root's password..."
 	passwd -d root
 	;;
 esac
