@@ -9,7 +9,7 @@ install: all
 	cp hook.d/* "$(DESTDIR)/etc/ovfdep/hook.d/"
 	
 	mkdir -p "$(DESTDIR)/usr/share/ovfdep"
-	cp share/* "$(DESTDIR)/usr/share/ovfdep/"
+	cp -r share/* "$(DESTDIR)/usr/share/ovfdep/"
 	
 	mkdir -p "$(DESTDIR)/usr/sbin"
 	cp ovfdep "$(DESTDIR)/usr/sbin/"
