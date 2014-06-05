@@ -1,0 +1,12 @@
+#!/bin/sh
+
+case "$1" in
+    startup)
+	if [ X`getent shadow root|cut -d: -f1-2|grep ':$'|cut -d: -f1` = 'Xroot' ]; then
+	    while passwd root; do echo; echo 'ROOT PASSWORD IS REQUIRED!'; echo; done
+	fi
+	;;
+    cleanup)
+	passwd -d root
+	;;
+esac

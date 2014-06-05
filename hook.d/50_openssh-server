@@ -1,0 +1,12 @@
+#!/bin/sh
+
+case "$1" in
+    startup)
+	if [ ! -e /etc/ssh/ssh_host_* ]; then
+	    dpkg-reconfigure openssh-server
+	fi
+	;;
+    cleanup)
+	rm -f /etc/ssh/ssh_host_*
+	;;
+esac
