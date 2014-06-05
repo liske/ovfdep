@@ -10,5 +10,8 @@ install: all
 	
 	mkdir -p "$(DESTDIR)/usr/share/ovfdep"
 	cp share/* "$(DESTDIR)/usr/share/ovfdep/"
+	
+	mkdir -p "$(DESTDIR)/usr/sbin"
+	cp ovfdep "$(DESTDIR)/usr/sbin/"
 
 clean:
