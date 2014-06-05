@@ -1,0 +1,23 @@
+Source: ovfdep
+Section: net
+Priority: optional
+Maintainer: Thomas Liske <thomas@fiasko-nw.net>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://fiasko-nw.net/~ŧhomas/tags/ovfdep.html
+#Vcs-Git: https://github.com/liske/ovfdep.git
+#Vcs-Browser: https://github.com/liske/ovfdep
+
+Package: ovfdep
+Architecture: all
+Depends: xsltproc
+Recommends: resolvconf
+Enhances: openssh-server
+Conflicts: mpt-status
+Description: VMware OVF deployment helper
+ The VMware OVF deployment helper configure basic system properties like
+ hostname, setup an initial root password, generate ssh host keys etc.
+ .
+ Hostname and IP configuration can be supplied via VMware's OVF environment
+ implementation. This requires vmtoolsd in the search path and suitable
+ configured vApp options.
