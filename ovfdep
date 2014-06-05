@@ -34,7 +34,7 @@ export OVFDEP_XSLDIR OVFDEP_OVFENV
 
 case "$1" in
     startup|cleanup)
-	run-parts --arg="$1" --lsbsysinit -- "$OVFDEP_HOOKDIR"
+	run-parts --arg="$1" -- "$OVFDEP_HOOKDIR"
 	;;
     *)
 	echo "Usage: $0 <startup|cleanup>" 1>&2
