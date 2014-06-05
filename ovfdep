@@ -25,6 +25,11 @@
 [ -z "$OVFDEP_HOOKDIR" ] && OVFDEP_HOOKDIR="/etc/ovfdep/hook.d"
 [ -z "$OVFDEP_XSLDIR" ] && OVFDEP_XSLDIR="/usr/share/ovfdep/xsl"
 
+# fetch OVF environment if available
+OVFDEP_OVFENV==`mktemp --suffix=.xml`
+trap "rm -f '$OVFDEP_OVFENV'" EXIT
+which vmtoolsd 1> /dev/null 2> /dev/null && vmtoolsd --cmd 'info-get guestinfo.ovfenv' > "$OVFDEP_OVFENV"
+
 case "$1" in
     startup|cleanup)
 	run-parts --arg="$1" --lsbsysinit -- "$OVFDEP_HOOKDIR"

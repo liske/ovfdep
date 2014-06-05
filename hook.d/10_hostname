@@ -24,8 +24,8 @@ OVFDEP_HOSTNAME="$OVFDEP_XSLDIR/hostname.xsl"
 
 case "$1" in
     startup)
-	if [ -s "$OVFDEP_OVFENF" && -r "$OVFDEP_HOSTNAME" ]; then
-	    myhostname=$(xsltproc "$OVFDEP_HOSTNAME" "$OVFDEP_OVFENF")
+	if [ -s "$OVFDEP_OVFENV" && -r "$OVFDEP_HOSTNAME" ]; then
+	    myhostname=$(xsltproc "$OVFDEP_HOSTNAME" "$OVFDEP_OVFENV")
 	    if [ -n "$myhostname" && "$myhostname" != $(hostname) ]; then
 		echo "$myhostname" > /etc/hostname
 		hostname "$myhostname"
