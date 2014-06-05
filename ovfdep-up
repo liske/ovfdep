@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# ovfdep - VMware OVF deployment helper
+#
+# Authors:
+#   Thomas Liske <thomas@fiasko-nw.net>
+#
+# Copyright Holder:
+#   2014 (C) Thomas Liske [http://fiasko-nw.net/~thomas/]
+#
+# License:
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+
+# needs to be called by ifup
+[ -z "$IFACE" ] && exit 0
+
+# check if vmtoolsd is available
+case "$IF_OVFDEP" in
+    '')
+        # we should not run at all
+        exit 0
+        ;;
+    *)
+        which vmtoolsd 1> /dev/null 2> /dev/null || {
+            echo 'VMware tools not available - aborting!' 1>&2
+            exit 1
+        }
+        ;;
+esac
+
+# build XSLT paths
+[ -r /etc/ovfdep/ovfdep.conf ] && . /etc/ovfdep/ovfdep.conf
+[ -z "$OVFDEP_XSLDIR" ] && OVFDEP_XSLDIR="/usr/share/ovfdep/xsl"
+OVFDEP_IPROUTE2="$OVFDEP_XSLDIR/iproute2.xsl"
+OVFDEP_RESOLVCONF="$OVFDEP_XSLDIR/resolvconf.xsl"
+
+# fetch OVF environment
+ovfenv=`mktemp --suffix=.xml`
+trap "rm -f '$ovfenv'" EXIT
+vmtoolsd --cmd "info-get guestinfo.ovfenv" > "$ovfenv"
+
+
+# iproute2 stuff
+if [ -r "$OVFDEP_IPROUTE2" ]; then
+    case "$IF_OVFDEP" in
+        iproute2|all)
+            fn=`mktemp --suffix=.sh`
+            xsltproc "$OVFDEP_IPROUTE2" "$ovfenv" > "$fn"
+            . "$fn"
+            rm -f "$fn"
+
+            ip addr add "$address/$netmask" dev "$IFACE"
+            ip route add -default via "$gateway"
+            ;;
+    esac
+fi
+
+
+# resolvconf stuff
+if [ -r "$OVFDEP_RESOLVCONF" ]; then
+    case "$IF_OVFDEP" in
+        resolvconf|all)
+            xsltproc "$OVFDEP_RESOLVCONF" "$ovfenv" | resolvconf -a "$IFACE.ovfdep"
+            ;;
+    esac
+fi

@@ -13,5 +13,10 @@ install: all
 	
 	mkdir -p "$(DESTDIR)/usr/sbin"
 	cp ovfdep "$(DESTDIR)/usr/sbin/"
+	
+	mkdir -p "$(DESTDIR)/etc/network/if-pre-up.d"
+	mkdir -p "$(DESTDIR)/etc/network/if-down.d"
+	cp ovfdep-up "$(DESTDIR)/etc/network/if-pre-up.d/"
+	cp ovfdep-down "$(DESTDIR)/etc/network/if-down.d/"
 
 clean:
