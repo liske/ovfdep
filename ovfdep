@@ -26,7 +26,7 @@
 [ -z "$OVFDEP_XSLDIR" ] && OVFDEP_XSLDIR="/usr/share/ovfdep/xsl"
 
 # fetch OVF environment if available
-OVFDEP_OVFENV==`mktemp --suffix=.xml`
+OVFDEP_OVFENV=`mktemp --suffix=.xml`
 trap "rm -f '$OVFDEP_OVFENV'" EXIT
 which vmtoolsd 1> /dev/null 2> /dev/null && vmtoolsd --cmd 'info-get guestinfo.ovfenv' > "$OVFDEP_OVFENV"
 
