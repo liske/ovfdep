@@ -6,7 +6,7 @@ install: all
 	
 	mkdir -p "$(DESTDIR)/etc/ovfdep/hook.d"
 	cp ex/ovfdep.conf "$(DESTDIR)/etc/ovfdep/"
-	cp hook.d/* "$(DESTDIR)/etc/ovfdep/hook.de/"
+	cp hook.d/* "$(DESTDIR)/etc/ovfdep/hook.d/"
 	
 	mkdir -p "$(DESTDIR)/usr/share/ovfdep"
 	cp share/* "$(DESTDIR)/usr/share/ovfdep/"
