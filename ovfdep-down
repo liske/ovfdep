@@ -58,8 +58,8 @@ if [ -r "$OVFDEP_IPROUTE2" ]; then
             . "$fn"
             rm -f "$fn"
 
-            ip addr del "$address/$netmask" dev "$IFACE"
             ip route del default via "$gateway"
+            ip addr del "$address/$netmask" dev "$IFACE"
             ;;
     esac
 fi
