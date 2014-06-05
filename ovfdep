@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# ovfdep - VMware OVF deployment helper
+#
+# Authors:
+#   Thomas Liske <thomas@fiasko-nw.net>
+#
+# Copyright Holder:
+#   2014 (C) Thomas Liske [http://fiasko-nw.net/~thomas/]
+#
+# License:
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+
+[ -r /etc/ovfdep/ovfdep.conf ] && . /etc/ovfdep/ovfdep.conf
+
+[ -z "$OVFDEP_HOOKDIR" ] && OVFDEP_HOOKDIR="/etc/ovfdep/hook.d"
+[ -z "$OVFDEP_XSLDIR" ] && OVFDEP_XSLDIR="/usr/share/ovfdep/xsl"
+
+case "$1" in
+    startup|cleanup)
+	run-parts --arg="$1" --lsbsysinit -- "$OVFDEP_HOOKDIR"
+	;;
+    *)
+	echo "Usage: $0 <startup|cleanup>" 1>&2
+	exit 1
+esac
