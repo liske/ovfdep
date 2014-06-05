@@ -39,7 +39,7 @@
   </xsl:template>
 
   <xsl:template match="oe:Property">
-    <xsl:value-of select="@oe:key"/>
+    <xsl:value-of select="substring(@oe:key, 5)"/>
     <xsl:text> </xsl:text>
     <xsl:value-of select="@oe:value"/>
     <xsl:text>
