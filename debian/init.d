@@ -2,6 +2,7 @@
 ### BEGIN INIT INFO
 # Provides:          ovfdep
 # Required-Start:    $local_fs
+# Should-Start:      vmware-tools
 # Required-Stop:     
 # Default-Start:     2 3 4 5
 # Default-Stop:      
