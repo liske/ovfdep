@@ -24,8 +24,7 @@ case "$1" in
     startup)
 	;;
     cleanup)
-	echo "Clean up /var/log..."
-	find /var/log -type f -name "*.gz" -exec rm -vf \{\} \;
-	find /var/log -type f -exec truncate -s0 \{\} \;
+	echo "Clean up ntp.drift..."
+	rm -vf /var/lib/ntp/ntp.drift
 	;;
 esac
