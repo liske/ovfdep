@@ -19,7 +19,7 @@
 # Do NOT "set -e"
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
-PATH=/sbin:/usr/sbin:/bin:/usr/bin
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin
 DESC="ovfdep"
 NAME=ovfdep
 BIN=/usr/sbin/ovfdep
