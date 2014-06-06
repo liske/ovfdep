@@ -1,0 +1,11 @@
+ovfdep (0.1-0alpha1) unstable; urgency=low
+
+  * First working version.
+
+ -- Thomas Liske <thomas@fiasko-nw.net>  Fri, 06 Jun 2014 11:02:06 +0200
+
+ovfdep (0.1-0alpha0) unstable; urgency=low
+
+  * Initial release.
+
+ -- Thomas Liske <thomas@fiasko-nw.net>  Thu, 05 Jun 2014 19:33:53 +0200
