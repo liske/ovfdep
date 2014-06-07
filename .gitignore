@@ -1,0 +1,5 @@
+debian/*.debhelper*
+debian/*.substvars
+debian/files
+debian/ovfdep
+*~
