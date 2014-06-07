@@ -33,8 +33,21 @@ which vmtoolsd 1> /dev/null 2> /dev/null && vmtoolsd --cmd 'info-get guestinfo.o
 export OVFDEP_XSLDIR OVFDEP_OVFENV
 
 case "$1" in
-    startup|cleanup)
+    startup)
 	run-parts --arg="$1" -- "$OVFDEP_HOOKDIR"
+	;;
+    cleanup)
+	case `who -r` in
+	    *"run-level 1"*)
+		run-parts --arg="$1" -- "$OVFDEP_HOOKDIR"
+		;;
+	    *)
+		echo
+		echo 'Sorry, cleanup is only available in runlevel 1!' 1>&2
+		echo
+		exit 2
+		;;
+	esac
 	;;
     *)
 	echo "Usage: $0 <startup|cleanup>" 1>&2
