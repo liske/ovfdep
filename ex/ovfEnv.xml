@@ -13,12 +13,12 @@
       <Locale>en</Locale>
    </PlatformSection>
    <PropertySection>
-         <Property oe:key="address" oe:value="192.168.1.17"/>
+         <Property oe:key="ifup-address" oe:value="192.168.1.17"/>
          <Property oe:key="dns-domain" oe:value="local"/>
          <Property oe:key="dns-nameservers" oe:value="192.168.1.53 192.168.1.54"/>
          <Property oe:key="dns-search" oe:value="local"/>
-         <Property oe:key="gateway" oe:value="192.168.1.1"/>
-         <Property oe:key="netmask" oe:value="255.255.255.0"/>
+         <Property oe:key="ifup-gateway" oe:value="192.168.1.1"/>
+         <Property oe:key="ifup-netmask" oe:value="255.255.255.0"/>
    </PropertySection>
    <ve:EthernetAdapterSection>
       <ve:Adapter ve:mac="00:50:56:66:66:66" ve:network="VM-Network" ve:unitNumber="7"/>
