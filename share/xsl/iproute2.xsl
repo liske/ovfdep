@@ -36,15 +36,15 @@
   <xsl:template match="/">
 	<xsl:for-each select="oe:Environment/oe:PropertySection/oe:Property">
 	    <xsl:choose>
-		<xsl:when test="@oe:key = 'address'"><xsl:apply-templates select="."/></xsl:when>
-		<xsl:when test="@oe:key = 'netmask'"><xsl:apply-templates select="."/></xsl:when>
-		<xsl:when test="@oe:key = 'gateway'"><xsl:apply-templates select="."/></xsl:when>
+		<xsl:when test="@oe:key = 'ifup-address'"><xsl:apply-templates select="."/></xsl:when>
+		<xsl:when test="@oe:key = 'ifup-netmask'"><xsl:apply-templates select="."/></xsl:when>
+		<xsl:when test="@oe:key = 'ifup-gateway'"><xsl:apply-templates select="."/></xsl:when>
 	    </xsl:choose>
 	</xsl:for-each>
   </xsl:template>
 
   <xsl:template match="oe:Property">
-    <xsl:value-of select="@oe:key"/>
+    <xsl:value-of select="substring(@oe:key, 6)"/>
     <xsl:text>='</xsl:text>
     <xsl:value-of select="@oe:value"/>
     <xsl:text>'
