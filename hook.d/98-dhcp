@@ -26,5 +26,6 @@ case "$1" in
     cleanup)
 	echo "Clean up dhcp leases..."
 	rm -vf /var/lib/dhcp/*.leases*;
+	rm -vf /var/lib/dhcp3/*.leases*;
 	;;
 esac
