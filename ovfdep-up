@@ -59,6 +59,7 @@ if [ -r "$OVFDEP_IPROUTE2" ]; then
             rm -f "$fn"
 
             ip addr add "$address/$netmask" dev "$IFACE"
+            ip link set "$IFACE" up
             ip route add default via "$gateway"
             ;;
     esac

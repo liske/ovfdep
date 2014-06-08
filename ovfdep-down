@@ -60,6 +60,7 @@ if [ -r "$OVFDEP_IPROUTE2" ]; then
 
             ip route del default via "$gateway"
             ip addr del "$address/$netmask" dev "$IFACE"
+            ip link set "$IFACE" down
             ;;
     esac
 fi
