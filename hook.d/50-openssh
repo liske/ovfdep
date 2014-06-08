@@ -26,6 +26,7 @@ glob2=$(echo $glob1)
 case "$1" in
     startup)
 	if [ "$glob1" = "$glob2" ]; then
+	    echo 'Configuring openssh-server...'
 	    dpkg-reconfigure openssh-server
 	fi
 	;;

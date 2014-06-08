@@ -27,6 +27,7 @@ case "$1" in
 	if [ -s "$OVFDEP_OVFENV" -a -r "$OVFDEP_HOSTNAME" ]; then
 	    myhostname=$(xsltproc "$OVFDEP_HOSTNAME" "$OVFDEP_OVFENV")
 	    if [ -n "$myhostname" -a "$myhostname" != $(hostname) ]; then
+		echo 'Configuring hostname...'
 		echo "$myhostname" > /etc/hostname
 		hostname "$myhostname"
 	    fi
