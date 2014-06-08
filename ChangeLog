@@ -1,3 +1,10 @@
+ovfdep (0.1-0beta1) unstable; urgency=low
+
+  * Add more clean-up stuff.
+  * Add ntp configuration.
+
+ -- Thomas Liske <thomas@fiasko-nw.net>  Sun, 08 Jun 2014 13:14:41 +0200
+
 ovfdep (0.1-0alpha1) unstable; urgency=low
 
   * First working version.
