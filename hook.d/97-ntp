@@ -31,6 +31,13 @@ case "$1" in
 	if [ -n "$ntpservers" ]; then
 	    echo "Configuring ntp..."
 
+	    #
+	    # This is taken from Debian's ntp package:
+	    #
+	    #   /etc/dhcp/dhclient-exit-hooks.d/ntp
+	    #
+	    # Copyright of ntp package may apply.
+	    #
 	    tmp=$(mktemp "$NTP_OVFDEP_CONF.XXXXXX") || return
 	    chmod --reference=$NTP_CONF $tmp
 	    chown --reference=$NTP_CONF $tmp
@@ -41,7 +48,10 @@ case "$1" in
 		echo "# here will be lost at the next reconfiguration.  Edit $NTP_CONF instead."
 		echo
 		echo "# NTP server entries configured by the OVF environment:"
-		echo $ntpservers
+		for server in $ntpservers; do
+		    echo "server $server iburst"
+		done
+		echo
 		sed -r -e '/^ *(server|peer).*$/d' $NTP_CONF
 	    ) >> $tmp
 	
@@ -49,7 +59,7 @@ case "$1" in
 	fi
 	;;
     cleanup)
-	echo "Clean up ntp.drift..."
-	rm -vf /var/lib/ntp/ntp.drift
+	echo "Clean up ntp..."
+	rm -vf /var/lib/ntp/ntp.drift $NTP_OVFDEP_CONF
 	;;
 esac
