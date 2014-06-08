@@ -38,6 +38,31 @@
 	<xsl:apply-templates select="oe:Environment/oe:PropertySection/oe:Property[substring(@oe:key, 1, 4) = 'dns-']"/>
   </xsl:template>
 
+  <xsl:template match="oe:Property[@oe:key = 'dns-nameservers']">
+	<xsl:for-each select="@oe:value">
+	    <xsl:call-template name="nameservers">
+		<xsl:with-param name="iplist" select="."/>
+	    </xsl:call-template>
+	</xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="nameservers">
+    <xsl:param name="iplist" select="normalize-space(.)"/>
+    <xsl:choose>
+	<xsl:when test="not(contains($iplist, ' '))">
+	    <xsl:text>nameserver </xsl:text><xsl:value-of select="$iplist"/><xsl:text>
+</xsl:text>
+	</xsl:when>
+	<xsl:otherwise>
+	    <xsl:text>nameserver </xsl:text><xsl:value-of select="substring-before($iplist, ' ')"/><xsl:text>
+</xsl:text>
+	    <xsl:call-template name="nameservers">
+		<xsl:with-param name="iplist" select="substring-after(normalize-space($iplist), ' ')"/>
+	    </xsl:call-template>
+	</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template match="oe:Property">
     <xsl:value-of select="substring(@oe:key, 5)"/>
     <xsl:text> </xsl:text>
