@@ -20,8 +20,33 @@
 #   GNU General Public License for more details.
 #
 
+NTP_CONF='/etc/ntp.conf'
+NTP_OVFDEP_CONF='/var/lib/ntp/ntp.conf.dhcp'
+
+OVFDEP_NTP="$OVFDEP_XSLDIR/ntp.xsl"
+
 case "$1" in
     startup)
+        ntpservers=`xsltproc "$OVFDEP_NTP" "$OVFDEP_OVFENV"`
+	if [ -n "$ntpservers" ]; then
+	    echo "Configuring ntp..."
+
+	    tmp=$(mktemp "$NTP_OVFDEP_CONF.XXXXXX") || return
+	    chmod --reference=$NTP_CONF $tmp
+	    chown --reference=$NTP_CONF $tmp
+
+	    (
+		echo "# This file was copied from $NTP_CONF with the server options changed"
+		echo "# to reflect the information configured by the OVF environment.  Any changes made"
+		echo "# here will be lost at the next reconfiguration.  Edit $NTP_CONF instead."
+		echo
+		echo "# NTP server entries configured by the OVF environment:"
+		echo $ntpservers
+		sed -r -e '/^ *(server|peer).*$/d' $NTP_CONF
+	    ) >> $tmp
+	
+	    mv $tmp $NTP_OVFDEP_CONF
+	fi
 	;;
     cleanup)
 	echo "Clean up ntp.drift..."
