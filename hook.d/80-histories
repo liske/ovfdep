@@ -26,5 +26,6 @@ case "$1" in
     cleanup)
 	echo "Clean up .bash_history..."
 	find /root /home -maxdepth 1 -type f -name .bash_history -exec rm -vf \{\} \;
+	find /root /home -maxdepth 1 -type f -name .lesshst -exec rm -vf \{\} \;
 	;;
 esac
