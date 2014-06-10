@@ -35,6 +35,7 @@ case "$1" in
 		"$home/.local/share/mc/filepos"			# mc
 		"$home/.local/share/mc/history"			# mc
 		"$home/.local/share/mc/mcedit/mcedit.clip"	# mc
+		"$home/.lvm_history"				# lvm2
 		"$home/.mysql_history"				# mysql-client
 		"$home/.psql_history"				# postgresql-client
 	    rm -vfr "$home/.cache";
