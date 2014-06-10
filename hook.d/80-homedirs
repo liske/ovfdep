@@ -24,8 +24,19 @@ case "$1" in
     startup)
 	;;
     cleanup)
-	echo "Clean up .bash_history..."
-	find /root /home -maxdepth 1 -type f -name .bash_history -exec rm -vf \{\} \;
-	find /root /home -maxdepth 1 -type f -name .lesshst -exec rm -vf \{\} \;
+	echo "Clean up home dirs..."
+	getent passwd | cut -d: -f6 | getent passwd |cut -d: -f6 | egrep -v '^/(dev|tmp|proc|sys|bin|usr|var/run|run|$)' |
+	while read home; do
+	    rm -rf \
+		"$home/.bash_history"				# bash
+		"$home/.lesshst"				# less
+		"$home/.mc/history"				# mc
+		"$home/.mc/cedit/cooledit.clip"			# mc
+		"$home/.local/share/mc/filepos"			# mc
+		"$home/.local/share/mc/history"			# mc
+		"$home/.local/share/mc/mcedit/mcedit.clip"	# mc
+		"$home/.mysql_history"				# mysql-client
+		"$home/.psql_history"				# postgresql-client
+	done
 	;;
 esac
