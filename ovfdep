@@ -6,7 +6,7 @@
 #   Thomas Liske <thomas@fiasko-nw.net>
 #
 # Copyright Holder:
-#   2014 (C) Thomas Liske [http://fiasko-nw.net/~thomas/]
+#   2014 - 2017 (C) Thomas Liske [http://fiasko-nw.net/~thomas/]
 #
 # License:
 #   This program is free software; you can redistribute it and/or modify
@@ -38,7 +38,7 @@ case "$1" in
 	;;
     cleanup)
 	case `who -r` in
-	    *"run-level 1"*)
+	    *"run-level 1"*|*"Runlevel 1"*)
 		run-parts --arg="$1" -- "$OVFDEP_HOOKDIR"
 		;;
 	    *)
